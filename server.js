@@ -1,8 +1,7 @@
 const sqlite = require('sqlite3').verbose();
 const db = new sqlite.Database('./database.db');
 
-//Insira aqui o código da tarefa proposta!
-//Apesar de não ser a melhor forma de manter um projeto, utilize apenas esse arquivo. Estamos testando!
+//Apesar de não ser a melhor forma de manter um projeto, estou utilizando apenas esse arquivo. Estamos testando!
 const express = require('express');
 const app = express();
 const port = 3000;
