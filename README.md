@@ -2,7 +2,7 @@
 Implementação da API rest usando verbos HTTP e realizando operações CRUD, utilizando o banco dados SQlite.
 
 ### Para começar:
-- https://github.com/vn-pereira/To_Do_App.git
+- https://github.com/vn-pereira/api_REST.git
 - npm i express --save
 - npm i nodemon --save-dev
 - npm i sqlite3@latest
