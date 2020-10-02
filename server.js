@@ -4,11 +4,12 @@ const db = new sqlite.Database('./database.db');
 //Insira aqui o código da tarefa proposta!
 //Apesar de não ser a melhor forma de manter um projeto, utilize apenas esse arquivo. Estamos testando!
 const express = require('express');
-const app = express()
+const app = express();
 const port = 3000;
 const bodyParser = require ('body-parser');
-const { request, response } = require('express');
+const cors = require('cors');
 
+app.use(cors())
 app.use(bodyParser.json()); //conversão do objeto para JSON
 
 app.get('/', (request, response) =>{
@@ -22,7 +23,7 @@ app.get('/tarefas', (request, response) =>{
 });
 
 app.get('/tarefas/:id', (request, response) =>{
-    db.get('SELECT * FROMM TAREFAS WHERE id like ?', [request.params.id], (err) =>{
+    db.get('SELECT * FROM TAREFAS WHERE id like ?', [request.params.id], (err) =>{
         if(err) console.log('Algo não está certo jovem')
         response.send();
     })
@@ -38,7 +39,7 @@ app.post('/tarefas', (request, response) =>{
         response.status(200).send('item inserido');  
 });
 
-app.delete('/tarefas/:id', (request, response) => {
+app.delete('/tarefas/:id', (request, response) =>{
     db.run(`DELETE FROM TAREFAS WHERE id=? `, [request.params.id], (err) =>{  
         if(err) console.log('continue tentando');
         response.status(200).send('Item deletado');
@@ -53,21 +54,9 @@ app.put('/tarefas/:id', (request, response) =>{
     })
 });
 
-/*  app.put('/tarefas/:id',(req, resp)=>{
-    
-      
-    db.run(`UPDATE TAREFAS SET titulo = ?, descricao = ?, status = ? where id =?`,[req.body.titulo,req.body.descricao,req.body.status, req.params.id], (err)=>{
-        if(err) console.log("Deu ruim");
-    })
-
-    resp.status(200).send('Item modificado');
-    
-})
- */
 app.listen(port, ()=> {
     console.log(`Ouvindo porta http://localhost:${port}`)
 });
-
 
 process.on('SIGINT', ()=> {
     db.close((err) => {
